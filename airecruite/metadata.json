@@ -1,0 +1,11 @@
+{
+  "name": "airecruite",
+  "description": "An AI-powered smart video interview recruitment and screening application under the airecruite brand.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
