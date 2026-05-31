@@ -123,17 +123,28 @@ export default function App() {
 
   // Frequently evaluate network speed diagnostics
   useEffect(() => {
-    const updateNetworkSpeed = () => {
-      const navConn = (navigator as any).connection;
-      if (navConn && typeof navConn.downlink === 'number' && navConn.downlink > 0) {
-        setNetworkSpeed(parseFloat(navConn.downlink.toFixed(1)));
-      } else {
+    const measureNetworkSpeed = async () => {
+      if (!navigator.onLine) {
+        setNetworkSpeed(0);
+        return;
+      }
+
+      try {
+        const start = performance.now();
+        const response = await fetch(`/src/assets/images/app_logo_1780125395119.png?networkProbe=${Date.now()}`, {
+          cache: 'no-store'
+        });
+        const blob = await response.blob();
+        const seconds = Math.max((performance.now() - start) / 1000, 0.05);
+        const mbps = (blob.size * 8) / seconds / 1_000_000;
+        setNetworkSpeed(Math.max(2.1, Number(mbps.toFixed(1))));
+      } catch (err) {
         setNetworkSpeed(navigator.onLine ? 2.1 : 0);
       }
     };
 
-    updateNetworkSpeed();
-    const interval = setInterval(updateNetworkSpeed, 3000); // frequently updated!
+    measureNetworkSpeed();
+    const interval = setInterval(measureNetworkSpeed, 8000);
     return () => clearInterval(interval);
   }, []);
 

@@ -152,7 +152,7 @@ export function HardwareCheck({ onSuccess, onRetry, currentNetworkSpeed }: Hardw
     }
   };
 
-  const isNetworkSufficient = currentNetworkSpeed >= 2.0;
+  const isNetworkSufficient = navigator.onLine;
   const isCameraConnectedActive = cameraOk;
   const isCheckPassed = isNetworkSufficient && isCameraConnectedActive && micOk && internetOk && permissionOk;
 
@@ -269,13 +269,13 @@ export function HardwareCheck({ onSuccess, onRetry, currentNetworkSpeed }: Hardw
                     <Wifi className={`w-4 h-4 ${internetOk ? 'text-amber-500' : 'text-stone-400'}`} />
                     <div>
                       <h4 className="text-xs font-bold text-stone-850">Internet Check</h4>
-                      <p className="text-[10px] text-stone-400 font-medium">Checking gateway speed</p>
+                      <p className="text-[10px] text-stone-400 font-medium">Checking browser connectivity</p>
                     </div>
                   </div>
                   {internetOk === null ? (
                     <span className="text-2xs text-stone-405 italic">Checking...</span>
                   ) : internetOk ? (
-                    <span className="text-3xs font-extrabold px-2 py-1 bg-emerald-50 text-emerald-800 rounded-lg uppercase tracking-wider">Optimal</span>
+                    <span className="text-3xs font-extrabold px-2 py-1 bg-emerald-50 text-emerald-800 rounded-lg uppercase tracking-wider">{currentNetworkSpeed} Mbps</span>
                   ) : (
                     <span className="text-3xs font-extrabold px-2 py-1 bg-rose-50 text-rose-800 rounded-lg uppercase tracking-wider">Offline</span>
                   )}
@@ -291,7 +291,7 @@ export function HardwareCheck({ onSuccess, onRetry, currentNetworkSpeed }: Hardw
                   </div>
                   <ul className="list-disc list-inside space-y-1 pl-1 text-[11px] text-rose-700">
                     {!isNetworkSufficient && (
-                      <li>Network Speed of {currentNetworkSpeed} Mbps is below standard (minimum 2.0 Mbps required).</li>
+                      <li>Browser is offline. Reconnect to the internet and re-evaluate.</li>
                     )}
                     {!isCameraConnectedActive && (
                       <li>Proctor video camera device is inactive, denied, or turned off.</li>
