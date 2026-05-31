@@ -43,12 +43,7 @@ export function AuthPanel({
     <div className="interactive-card w-full max-w-2xl bg-white rounded-2xl p-7 sm:p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] border border-slate-100 text-left animate-fade-in">
       <div className="mb-6 flex items-center justify-center">
         <div className="flex items-center gap-3">
-          <img
-            src="/src/assets/images/app_logo_1780125395119.png"
-            alt="airecruite logo"
-            className="w-12 h-12 object-contain"
-            referrerPolicy="no-referrer"
-          />
+          
           <div>
             <h2 className="text-lg font-extrabold tracking-tight text-slate-950">airecruite</h2>
             <p className="text-[10px] font-bold uppercase tracking-widest text-amber-600">Secure hiring access</p>
